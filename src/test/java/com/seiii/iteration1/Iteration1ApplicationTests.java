@@ -1,4 +1,4 @@
-package com.seciii.iteration1;
+package com.seiii.iteration1;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,4 +12,5 @@ public class Iteration1ApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
+
 }
