@@ -12,5 +12,4 @@ public class Iteration1ApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
