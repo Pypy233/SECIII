@@ -1,0 +1,250 @@
+<!DOCTYPE html><html><head>
+    <style>
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #controls {
+            position: absolute;
+            display: flex;
+            top: 0;
+            left: 0;
+            width: calc(100% - 20px);
+            background-color: rgba(40, 40, 40, .6);
+            height: 40px;
+            padding: 10px 10px 10px 10px;
+        }
+        button {
+            flex: 1;
+            border: none;
+            background-color: #eee;
+        }
+        button:hover {
+            cursor: pointer;
+            background-color: #999;
+        }
+        button:focus {
+            outline: none;
+        }
+        #btnShift {
+            margin-left: 10px;
+        }
+        #btnPop,
+        #btnClear,
+        #btnShift {
+            flex: 0.5;
+        }
+        .true {
+            background-color: #383;
+            color: white;
+        }
+        .true:hover {
+            background-color: #353;
+            cursor: pointer;
+        }
+        .false {
+            background-color: #833;
+            color: white;
+        }
+        .false:hover {
+            background-color: #533;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript" src="http://wow.techbrood.com/libs/jquery/jquery-2.1.1.min.js"></script><canvas id=c></canvas>
+<div id=controls>
+    <button id=btnGuides class=true title="display guidelines"> Guide Lines </button>
+    <button id=btnPoints class=true title="display clicks"> Ctrl Points </button>
+    <button id=btnNumbs class=true title="display order of clicks"> Point Numbs </button>
+    <button id=btnShift title="remove oldest click"> Shift </button>
+    <button id=btnClear title="empty clicks"> Clear </button>
+    <button id=btnPop title="remove latest click"> Pop </button>
+</div>
+<script>
+    var w = c.width = window.innerWidth,
+        h = c.height = window.innerHeight,
+        ctx = c.getContext('2d'),
+
+        displayGuideLines = true,
+        displayPoints = true,
+        displayPointNumbers = true,
+        points = [];
+    circle = [];
+
+    function smoothLine(points) {
+
+        ctx.fillStyle = '#333';
+        ctx.fillRect(0, 0, w, h);
+
+        if (displayGuideLines) {
+
+            ctx.beginPath();
+            ctx.lineWidth = .6;
+            ctx.strokeStyle = '#111';
+
+            ctx.moveTo(points[0].x, points[0].y);
+
+            for (var i = 1; i < points.length; ++i)
+                ctx.lineTo(points[i].x, points[i].y);
+
+            ctx.stroke();
+        }
+
+
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#eee';
+        var x = points[0].x,
+            y = points[0].y;
+
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+
+        for (var i = 0; i < points.length; ++i) {
+
+            var x2 = points[i].x,
+                y2 = points[i].y,
+
+                mx = (x + x2) / 2,
+                my = (y + y2) / 2;
+
+            ctx.quadraticCurveTo(x, y, mx, my);
+
+            x = x2;
+            y = y2;
+
+        }
+
+        ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+
+        ctx.stroke();
+
+        if (displayPoints) {
+
+            ctx.fillStyle = '#e88';
+            for (var i = 0; i < points.length; ++i) {
+
+                ctx.beginPath();
+                ctx.arc(points[i].x, points[i].y, 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                if (displayPointNumbers) {
+
+                    ctx.font = '14px Verdana';
+                    ctx.fillText(i, points[i].x - ctx.measureText(i).width / 2, points[i].y + 18);
+                }
+            }
+        }
+    }
+
+    function Point(x, y) {
+
+        this.x = x;
+        this.y = y;
+    }
+
+
+    function clear() {
+
+        ctx.fillStyle = '#333';
+        ctx.fillRect(0, 0, w, h);
+
+        var string = 'Click anywhere on the canvas to make a new Point';
+
+        ctx.font = '20px Verdana';
+        ctx.fillStyle = '#eee';
+        ctx.fillText(string, w / 2 - ctx.measureText(string).width / 2, h / 2);
+    }
+
+    clear();
+
+    c.addEventListener('click', function(e) {
+
+        points.push(new Point(e.clientX, e.clientY));
+        smoothLine(points);
+    });
+
+    c.addEventListener('dblclick',function(e) {
+
+        points.push(new Point(e.clientX, e.clientY));
+        smoothLine(points);
+        points.push(points[0]);
+        smoothLine(points);
+        formerCircle = points;
+        circle.push(formerCircle);
+
+    });
+
+
+
+    btnGuides.addEventListener('click', function() {
+        btnGuides.className = '' + (displayGuideLines = !displayGuideLines);
+
+        if (points.length > 0) smoothLine(points);
+        else clear();
+    });
+
+    btnPoints.addEventListener('click', function() {
+        btnPoints.className = '' + (displayPoints = !displayPoints);
+
+        if (points.length > 0) smoothLine(points);
+        else clear();
+    });
+
+    btnNumbs.addEventListener('click', function() {
+        btnNumbs.className = '' + (displayPointNumbers = !displayPointNumbers);
+
+        if (points.length > 0) smoothLine(points);
+        else clear();
+    });
+
+    btnClear.addEventListener('click', function() {
+
+        clear();
+
+        points.length = 0;
+    });
+    btnPop.addEventListener('click', function() {
+
+        if (points.length > 0) {
+            points.pop();
+            smoothLine(points);
+
+        } else clear();
+    });
+    btnShift.addEventListener('click', function() {
+
+        if (points.length > 0) {
+            points.shift();
+            smoothLine(points);
+
+        } else clear();
+    });
+
+    window.addEventListener('resize', function() {
+
+        var prevW = w,
+            prevH = h;
+
+        w = c.width = window.innerWidth;
+        h = c.height = window.innerHeight;
+
+        if (points.length === 0)
+            clear();
+        else {
+
+            points.map(function(point) {
+
+                point.x *= w / prevW;
+                point.y *= h / prevH;
+            });
+
+            smoothLine(points);
+        }
+    })
+</script>
+
+</body>
+</html>
