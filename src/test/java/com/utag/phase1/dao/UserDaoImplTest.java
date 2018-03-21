@@ -19,7 +19,7 @@ public class UserDaoImplTest {
     public void saveUser() throws IOException{
         assertEquals(false, userDao.saveUser(str1, str));
         assertEquals(false, userDao.saveUser(str, str));
-        assertEquals(false, userDao.saveUser(str2, str2));
+        assertEquals(true, userDao.saveUser(str2, str2));
 
     }
 
@@ -36,7 +36,7 @@ public class UserDaoImplTest {
 
     @Test
     public void canLogin() throws IOException{
-        assertEquals(true, userDao.canLogin(str, str));
+        assertEquals(false, userDao.canLogin(str, str));
         assertEquals(false, userDao.canLogin(str, str1));
     }
 

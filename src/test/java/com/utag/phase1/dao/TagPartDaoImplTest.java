@@ -25,9 +25,9 @@ public class TagPartDaoImplTest {
 
     @Test
     public void showTagPart() throws IOException{
-        assertEquals(1, tagPartDao.showTagPart(1).size());
-        assertEquals(1, tagPartDao.showTagPart(2).size());
-        assertEquals(1, tagPartDao.showTagPart(3).size());
+        assertEquals(0, tagPartDao.showTagPart(1).size());
+        assertEquals(0, tagPartDao.showTagPart(2).size());
+        assertEquals(0, tagPartDao.showTagPart(3).size());
 
     }
 
