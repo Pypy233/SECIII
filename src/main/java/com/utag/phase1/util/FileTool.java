@@ -41,7 +41,8 @@ public class FileTool {
             BufferedReader reader = new BufferedReader(fileReader);
             String str = null;
             while ((str = reader.readLine()) != null) {
-                list.add(str);
+                if(str.startsWith("{"))
+                    list.add(str);
             }
             reader.close();
         } catch (Exception ex){

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tag</title>
+	<meta name="description" content="A sidebar menu as seen on the Google Nexus 7 website" />
+	<meta name="keywords" content="google nexus 7 menu, css transitions, sidebar, side menu, slide out menu" />
+	<meta name="author" content="Codrops" />
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/input.css" />
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+	<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.bigcolorpicker.js"></script>
+	<script src="js/draw.js"></script>
+	<script src="js/storage.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/loadPic.js"></script>
+	<script src="js/input.js"></script>
+	<link rel="stylesheet" href="css/canvas.css" type="text/css" />
+	<link rel="stylesheet" href="css/jquery.bigcolorpicker.css" type="text/css" />
+	<script src="js/modernizr.custom.js"></script>
+</head>
+<body>
+<div class="container">
+	<ul id="gn-menu" class="gn-menu-main">
+		<li class="gn-trigger">
+			<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+			<nav class="gn-menu-wrapper">
+				<div class="gn-scroller">
+					<ul class="gn-menu">
+						<li class="gn-search-item">
+							<input placeholder="Search" type="search" class="gn-search">
+							<a class="gn-icon gn-icon-search"><span>Search</span></a>
+						</li>
+						<li><a class="iconfont icon-pencil">Pencils</a></li>
+						<li><a class="iconfont icon-fangxingweixuanzhong">Square</a></li>
+						<li><a class="iconfont icon-chexiao">Cancel</a></li>
+						<li><a class="iconfont icon-zhongzuo">Next</a></li>
+						<li><a class="iconfont icon-icon--">Clear</a></li>
+						<li><a class="iconfont icon-baocun">Save</a></li>
+						<li><a class="gn-icon gn-icon-download">Downloads</a></li>
+						<li><a class="gn-icon gn-icon-cog">Settings</a></li>
+						<li><a class="gn-icon gn-icon-help">Help</a></li>
+					</ul>
+				</div><!-- /gn-scroller -->
+			</nav>
+		</li>
+		<!--<li><a href="http://tympanus.net/codrops">Codrops</a></li>-->
+		<li><a id="previousPic" class = "codrops-icon codrops-icon-prev" onclick="previousPic()"><span>Previous Picture</span></a></li>
+		<li><input class = "input" type="text" placeholder="Input the tag" id="label-tag"/></li>
+		<li><a id="check-tag" class = "codrops-icon codrops-icon-check">check</a></li>
+		<li><a id="nextPic" class = "codrops-icon codrops-icon-drop" onclick="nextPic()"><span>Next Picture</span></a></li>
+	</ul>
+
+	<header>
+		<div id="draw">
+
+			<!--<div id="logo">绘画板</div>-->
+
+			<ul class="draw_controller cf">
+				<li class="normal pencil" title="铅笔"></li>
+				<li class="normal handwriting" title="涂鸦"></li>
+				<li class="normal line showLine" title="线条大小"></li>
+				<li class="normal showColor" id="chooseColor" title="选择颜色"></li>
+				<li class="normal rubber" title="橡皮擦"></li>
+
+				<span>|</span>
+
+				<li class="normal drawLine" title="画直线"></li>
+				<li class="normal square" title="方形"></li>
+				<li class="normal circle" title="圆"></li>
+				<li class="normal fill" title="填充前景"></li>
+
+
+				<span>|</span>
+
+				<li class="normal cancel" title="撤销上一个操作"></li>
+				<li class="normal next" title="重做上一个操作"></li>
+				<li class="normal clearContext" title="清屏"></li>
+				<li class="normal save" title="保存"></li>
+				<li class="normal downloadImage" title="下载"><a href="#" download="picture.png" id="downloadImage_a"></a></li>
+			</ul>
+
+
+			<div class="canvas_container">
+				<canvas id="canvas">
+					浏览器不支持
+				</canvas>
+
+				<canvas id="canvas_bak">
+
+				</canvas>
+			</div>
+			<!--<p class="tip">小提示：可以拖拽传入图片编辑哦~</p>-->
+			<!--<div class="previous_picture" id="prePic">-->
+				<!--<ul>-->
+					<!--&lt;!&ndash;<li><button id="previousPic" onclick="previousPic()">PreviousPicture</button></li>&ndash;&gt;-->
+					<!--&lt;!&ndash;<li><button id="nextPic" onclick="nextPic()">NextPicture</button></li>&ndash;&gt;-->
+				<!--</ul>-->
+			<!--</div>-->
+			<!--<div class="label-panel">-->
+				<!--<div class="label-group">-->
+					<!--<input type="text" placeholder="输入标签" id="label-tag"/>-->
+					<!--<button id="check-tag">check</button>-->
+				<!--</div>-->
+				<!--&lt;!&ndash;<div class="btn-group">&ndash;&gt;-->
+				<!--&lt;!&ndash;<button id="next-picture" class="btn-0" data-type="label">保存、获取下一张</button>&ndash;&gt;-->
+				<!--&lt;!&ndash;</div>&ndash;&gt;-->
+			<!--</div>-->
+			<div id="showHistory" class="cf">
+				<h2>绘画保存记录</h2>
+			</div>
+
+			<div id="line_size" class="line_size normal">
+				<ul>
+					<!-- <li><button data-value="0.5" class="small"><span style="width: 1px; height: 1px;"></span></button></li> -->
+					<li><button data-value="1" class="small current"><span style="width: 2px; height: 2px;"></span></button></li>
+					<!-- <li><button data-value="2" class="small"><span style="width: 3px; height: 3px;"></span></button></li> -->
+					<li><button data-value="3" class="small selected"><span style="width: 4px; height: 4px;"></span></button></li>
+					<!-- <li><button data-value="4"><span style="width: 6px; height: 6px;"></span></button></li> -->
+					<li><button data-value="5"><span style="width: 8px; height: 8px;"></span></button></li>
+					<li><button data-value="7"><span style="width: 10px; height: 10px;"></span></button></li>
+					<!-- <li><button data-value="9"><span style="width: 12px; height: 12px;"></span></button></li> -->
+					<!-- <li><button data-value="16"><span style="width: 16px; height: 16px;"></span></button></li> -->
+					<!-- <li><button data-value="32" class="large"><span style="width: 28px; height: 28px;"></span></button></li> -->
+				</ul>
+			</div>
+
+		</div>
+	</header>
+</div><!-- /container -->
+<script src="js/classie.js"></script>
+<script src="js/gnmenu.js"></script>
+<script>
+			new gnMenu( document.getElementById( 'gn-menu' ) );
+		</script>
+</body>
+</html>

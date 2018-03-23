@@ -3,13 +3,10 @@ package com.utag.phase1.controller;
 
 import com.utag.phase1.service.Impl.UserServiceImpl;
 import com.utag.phase1.service.UserService;
-import com.utag.phase1.util.FileTool;
 import com.utag.phase1.util.Response;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
-import java.io.*;
 
 
 @Controller

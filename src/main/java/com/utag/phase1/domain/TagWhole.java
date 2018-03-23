@@ -1,16 +1,20 @@
 package com.utag.phase1.domain;
 
+/**
+ * 整张图片标注的持久类
+ */
+
 import java.io.Serializable;
 
 public class TagWhole implements Serializable {
 
     /**
-     *
+     *照片id
      */
-    private int imageID;
+    private String imageID;
 
     /**
-     *
+     *标注描述
      */
     private String description;
 
@@ -19,16 +23,16 @@ public class TagWhole implements Serializable {
     }
 
 
-    public TagWhole(int imageID, String description) {
+    public TagWhole(String imageID, String description) {
         this.imageID = imageID;
         this.description = description;
     }
 
-    public int getImageID() {
+    public String getImageID() {
         return imageID;
     }
 
-    public void setImageID(int imageID) {
+    public void setImageID(String imageID) {
         this.imageID = imageID;
     }
 

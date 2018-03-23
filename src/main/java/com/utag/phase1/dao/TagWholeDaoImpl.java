@@ -8,6 +8,7 @@ import com.utag.phase1.util.GsonTool;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class TagWholeDaoImpl implements TagWholeDao {
     private static final String FILE_NAME = "whole_pictures.json";
 
@@ -24,19 +25,19 @@ public class TagWholeDaoImpl implements TagWholeDao {
     }
 
     @Override
-    public boolean saveTagWhole(int imageID, String description) throws IOException{
+    public boolean saveTagWhole(String imageID, String description) throws IOException{
         TagWhole tagWhole = new TagWhole(imageID, description);
         String jsonStr = GsonTool.toJson(tagWhole);
         return FileTool.writeFile(FILE_NAME, jsonStr);
     }
 
     @Override
-    public boolean deleteTagWhole(int imageID) throws IOException{
+    public boolean deleteTagWhole(String imageID) throws IOException{
         ArrayList<TagWhole> list = init();
         ArrayList<String> resultList = new ArrayList<>();
 
         for(TagWhole t: list){
-            if(t.getImageID() != imageID){
+            if(!t.getImageID().equals(imageID)){
                 TagWhole tagWhole = new TagWhole(t.getImageID(), t.getDescription());
                 String jsonStr = GsonTool.toJson(tagWhole);
                 resultList.add(jsonStr);
@@ -46,12 +47,12 @@ public class TagWholeDaoImpl implements TagWholeDao {
     }
 
     @Override
-    public boolean updateTagWhole(int imageID, String description) throws IOException{
+    public boolean updateTagWhole(String imageID, String description) throws IOException{
         ArrayList<TagWhole> list = init();
         ArrayList<String> resultList = new ArrayList<>();
 
         for(TagWhole t: list){
-            if(t.getImageID() == imageID){
+            if(t.getImageID().equals(imageID)){
                 TagWhole tagWhole = new TagWhole(imageID, description);
                 String jsonStr = GsonTool.toJson(tagWhole);
                 resultList.add(jsonStr);
@@ -61,5 +62,18 @@ public class TagWholeDaoImpl implements TagWholeDao {
             }
         }
         return FileTool.rewriteFile(FILE_NAME, resultList);
+    }
+
+    @Override
+    public int getDescriptionLength(String imageID) throws IOException{
+        ArrayList<TagWhole> list = init();
+
+        for(TagWhole t: list){
+            if(t.getImageID().equals(imageID)){
+                String des = t.getDescription();
+                return des.length();
+            }
+        }
+        return 0;
     }
 }

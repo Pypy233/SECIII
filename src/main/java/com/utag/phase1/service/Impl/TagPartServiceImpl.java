@@ -13,7 +13,7 @@ public class TagPartServiceImpl implements TagPartService {
     TagPartDao tagPartDao = new TagPartDaoImpl();
 
     @Override
-    public Response<Boolean> saveTagPart(int imageID, double x1, double x2, double y1, double y2, String description)
+    public Response<Boolean> saveTagPart(String imageID, double x1, double x2, double y1, double y2, String description)
             throws IOException{
         Response<Boolean> response = new Response<>();
         if(tagPartDao.saveTagPart(imageID, x1, x2, y1, y2, description))
@@ -24,14 +24,14 @@ public class TagPartServiceImpl implements TagPartService {
     }
 
     @Override
-    public Response<List<TagPart>> showTagPart(int imageID) throws IOException{
+    public Response<List<TagPart>> showTagPart(String imageID) throws IOException{
         Response<List<TagPart>> response = new Response<>();
         response.setData(tagPartDao.showTagPart(imageID));
         return response;
     }
 
     @Override
-    public Response<Boolean> deleteTagPart(int imageID)throws IOException {
+    public Response<Boolean> deleteTagPart(String imageID)throws IOException {
         Response<Boolean> response = new Response<>();
         if(tagPartDao.deleteTagPart(imageID))
             response.setSuccess(true);
@@ -39,5 +39,25 @@ public class TagPartServiceImpl implements TagPartService {
             response.setSuccess(false);
         return response;
     }
+
+    @Override
+    public Response<Boolean> updateTagPart(String imageID, double x1, double x2,
+                                           double y1, double y2, String description) throws IOException {
+        Response<Boolean> response = new Response<>();
+        if(tagPartDao.updateTagPart(imageID, x1, x2, y1, y2, description))
+            response.setSuccess(true);
+        else
+            response.setSuccess(false);
+        return response;
+    }
+
+    @Override
+    public Response<Integer> getDescriptionLength(String imageID, double x1,
+                                                  double x2, double y1, double y2) throws IOException {
+        Response<Integer> response = new Response<>();
+        response.setData(tagPartDao.getDescriptionLength(imageID, x1, x2, y1, y2));
+        return response;
+    }
+
 
 }

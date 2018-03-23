@@ -13,8 +13,7 @@
 
                 success : function (data) {
                     if(data.success){
-                        // 暂定为这玩意儿，以后改
-                        window.location.href="views/painter.html";
+                        window.location.href="draw/index.html";
                     }else
                         alert("Error!");
                 },

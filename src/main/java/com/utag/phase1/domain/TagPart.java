@@ -11,7 +11,7 @@ public class TagPart implements Serializable{
     /**
      * 图片id
      */
-    private int imageID;
+    private String imageID;
 
 
     /**
@@ -46,7 +46,7 @@ public class TagPart implements Serializable{
     public TagPart() {
     }
 
-    public TagPart(int imageID, double x1, double x2, double y1, double y2, String description) {
+    public TagPart(String imageID, double x1, double x2, double y1, double y2, String description) {
         this.imageID = imageID;
         this.x1 = x1;
         this.x2 = x2;
@@ -55,11 +55,11 @@ public class TagPart implements Serializable{
         this.description = description;
     }
 
-    public int getImageID() {
+    public String getImageID() {
         return imageID;
     }
 
-    public void setImageID(int imageID) {
+    public void setImageID(String imageID) {
         this.imageID = imageID;
     }
 

@@ -1,3 +1,8 @@
-{"imageID":1,"x1":0.0,"x2":1.0,"y1":0.0,"y2":1.0,"description":"test1"}
-{"imageID":2,"x1":0.0,"x2":2.0,"y1":0.0,"y2":0.0,"description":"test2"}
-{"imageID":3,"x1":0.0,"x2":3.0,"y1":0.0,"y2":3.0,"description":"test3"}
+{"imageID":"background","x1":273.5,"x2":273.5,"y1":285.0,"y2":285.0,"description":"cdsf"}
+{"imageID":"background","x1":233.5,"x2":726.5,"y1":76.0,"y2":333.0,"description":"dads"}
+{"imageID":"background","x1":277.5,"x2":700.5,"y1":120.0,"y2":383.0,"description":"cdasf"}
+{"imageID":"background","x1":311.5,"x2":843.5,"y1":113.0,"y2":418.0,"description":"dcasf"}
+{"imageID":"background","x1":440.5,"x2":180.5,"y1":159.0,"y2":391.0,"description":"cdasfdg"}
+{"imageID":"background","x1":432.5,"x2":629.5,"y1":377.0,"y2":555.0,"description":"right-leg"}
+{"imageID":"cat","x1":333.0,"x2":252.0,"y1":496.0,"y2":403.0,"description":"cat"}
+{"imageID":"cat","x1":333.0,"x2":252.0,"y1":496.0,"y2":403.0,"description":"dog"}

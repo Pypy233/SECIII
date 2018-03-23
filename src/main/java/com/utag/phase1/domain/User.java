@@ -1,16 +1,19 @@
 package com.utag.phase1.domain;
 
+/**
+ * 用户信息的持久类
+ */
 import java.io.Serializable;
 
 public class User implements Serializable {
     /**
-     *
+     *用户名
      */
     public String username;
 
 
     /**
-     *
+     *密码
      */
     public String password;
 
